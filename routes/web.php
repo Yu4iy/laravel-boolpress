@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// HOME 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 // ROTTE AUTENTICAZIONE 
 
@@ -28,5 +25,12 @@ Route::middleware('auth')
 ->name('admin')
 ->prefix('admin')
 ->group(function() {
- Route::get('/', 'HomeController@index')->name('home');
+
+	Route::get('/', 'HomeController@index')->name('home');
+
 });
+
+
+Route::get("{any?}", function(){
+	return view('guests.home');
+})->where('any', '.*');
