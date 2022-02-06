@@ -29,8 +29,24 @@
 			<textarea name="content" id="content" class="form-control" rows="6">{{old('content')}}</textarea>
 		</div>
 
+		<div class="mb-3">
+			<label class="form-label" for="categorie_id">Categorie</label>
+			<select class="form-control" name="categorie_id" id="categorie_id">
 
-		<button class="btn btn-success">Create Post</button>
+				<option value="">No Categorie</option>
+
+				@foreach ($categories as $categorie)
+
+					<option value="{{$categorie->id}}" @if ($categorie->id == old('categorie_id')) selected @endif >
+						{{$categorie->name}}
+					</option>
+
+				@endforeach
+			</select>
+		</div>
+
+
+		<button type="submit" class="btn btn-success">Create Post</button>
 		
 	</form>
 </div>

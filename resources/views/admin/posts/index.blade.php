@@ -14,6 +14,7 @@
 						<th>ID</th>
 						<th>Title</th>
 						<th>Actions</th>
+						<th>Categorie</th>
 					</tr>
 			</thead>
 			<tbody>
@@ -21,6 +22,7 @@
 				<tr>
 					<th>{{$post['id']}}</th>
 					<th>{{$post['title']}}</th>
+					<th>@if ($post->categorie){{$post->categorie['name']}} @else No Categorie @endif </th>
 					<th>
 						<a class=" btn btn-success mx-2" href="{{route('admin.posts.edit', $post->id)}}">Edit</a>
 						<a class=" btn btn-primary mx-2" href="{{route('admin.posts.show', $post->slug )}}" >Show</a>
