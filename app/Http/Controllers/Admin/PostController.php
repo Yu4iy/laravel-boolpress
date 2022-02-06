@@ -16,8 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-		$post = Post::all();
-      return view('admin.posts.index', compact('post'));
+		$posts = Post::all();
+      return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -81,7 +81,12 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+		$post = Post::find($id);
+
+		if( ! $post){
+			abort(404);
+		}
+		return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -93,7 +98,34 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $request->validate([
+			'title'=>'required|max:255',
+			'img'=>'required|max:255',
+			'content'=>'required',
+			
+		]);
+			$data = $request->all();
+
+			$post = Post::find($id);
+			
+			if($data['title'] != $post->title){
+				$slug = Str::slug($data['title'],'-');
+				$count = 1;
+				while(Post::where('slug', $slug)->first()) {
+					$slug .= '-' . $count;
+					$count++;
+				}
+
+				$data['slug'] = $slug;
+			}
+			else {
+				$data['slug'] =  $post->slug;
+			}
+
+			$post->update($data);
+			
+
+			return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
