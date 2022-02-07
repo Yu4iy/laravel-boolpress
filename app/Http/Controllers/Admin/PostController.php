@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use App\Tag;
 use App\Categorie;
-use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -32,11 +31,7 @@ class PostController extends Controller
     {
 		$categories = Categorie::all();
 		$tags = Tag::all();
-<<<<<<< HEAD
 		return view('admin.posts.create', compact('categories', 'tags'));
-=======
-		return view('admin.posts.create', compact('categories','tags'));
->>>>>>> abadf3d09c4186412f5cc1ced3b32686f9e7f315
     }
 
     /**
@@ -52,12 +47,7 @@ class PostController extends Controller
 			'img'=>'required|max:255',
 			'content'=>'required',
 			'categorie_id'=>'nullable|exists:categories,id',
-<<<<<<< HEAD
 			'tags'=>'nullable|exists:tags,id'
-=======
-			'tags'=>'nullable|exists:tags,id',
-			
->>>>>>> abadf3d09c4186412f5cc1ced3b32686f9e7f315
 		]);
       $data = $request->all();
 		$post = new Post();
@@ -69,16 +59,12 @@ class PostController extends Controller
 		}
 
 		$data['slug'] = $slug;
-		dd($data);
+		
 		$post->fill($data);
 		$post->save();
 
 
-<<<<<<< HEAD
 		if( array_key_exists('tags', $data) ){
-=======
-		if(array_key_exists('tags', $data)) {
->>>>>>> abadf3d09c4186412f5cc1ced3b32686f9e7f315
 			$post->tags()->attach($data['tags']);
 		}
 
