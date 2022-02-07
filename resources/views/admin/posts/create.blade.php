@@ -45,19 +45,7 @@
 			</select>
 		</div>
 		
-		<div class="mb-3">
-			<h4>Tags</h4>
-			@foreach ($tags as $tag)
-				<span class="mr-2">
-					
-					<input type="checkbox" name="tags[]" id="tag-{{$loop->iteration}}" value="{{$tag->id}}" @if(in_array($tag->id, old('tags', [] ))) checked @endif>
-					
-					<label for="tag-{{$loop->iteration}}">{{$tag->name}}</label>
-				</span>
-			@endforeach
-		</div>
 
-<<<<<<< HEAD
 		<div class="mb-3">
 			<h4>Tags</h4>
 			
@@ -71,9 +59,7 @@
 		</div>
 
 		<button type="submit" class="btn btn-success">Create Post</button>
-=======
-		<button type="submit" class="btn btn-success d-block">Create Post</button>
->>>>>>> abadf3d09c4186412f5cc1ced3b32686f9e7f315
+
 		
 	</form>
 </div>
