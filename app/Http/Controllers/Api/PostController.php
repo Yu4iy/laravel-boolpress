@@ -11,4 +11,9 @@ class PostController extends Controller
 		$posts = Post::paginate(2);
 		return response()->json($posts);
 	}
+
+	public function show($slug) {
+		$post = Post::where('slug', $slug)->with('categorie','tags')->first();
+		return response()->json($post);
+	}
 }
