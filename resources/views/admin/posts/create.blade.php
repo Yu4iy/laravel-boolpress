@@ -11,7 +11,7 @@
 			</ul>
 		</div>
 	@endif
-	<form action="{{route('admin.posts.store')}}" method="POST">
+	<form action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
 		@csrf
 		
 		<div class="mb-3">
@@ -56,6 +56,11 @@
 					@if ( in_array($tag->id, old('tags', []))) checked @endif >
 				</span>
 			@endforeach
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label" for="cover">Image</label>
+			<input class="file" type="file" id="cover" name="cover">
 		</div>
 
 		<button type="submit" class="btn btn-success">Create Post</button>

@@ -12,6 +12,9 @@
 	<div class="row">
 		<div class="col-6">
 			<img class="img-fluid" src="{{$post['img']}}" alt=""> 
+			@if ($post->cover)
+			<img class="img-fluid" src="{{asset('storage/'.$post->cover)}}" alt="{{$post->title}}"> 
+			@endif
 		</div>
 		<div class="col-6">
 			<h1>{{$post['title']}}</h1>

@@ -11,7 +11,7 @@
 			</ul>
 		</div>
 	@endif
-	<form action="{{route('admin.posts.update', $post->id)}}" method="POST">
+	<form action="{{route('admin.posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
 		
 		@csrf
 		@method('PATCH')
@@ -45,6 +45,17 @@
 
 				@endforeach
 			</select>
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label" for="cover">Image</label>
+			@if ($post->cover)
+			<figure>
+				<img src="{{asset('storage/'.$post->cover)}}" alt="">
+
+			</figure>
+			@endif
+			<input class="file" type="file" id="cover" name="cover">
 		</div>
 
 		<button type="submit" class="btn btn-success">Update Post</button>

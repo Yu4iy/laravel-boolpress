@@ -7,6 +7,7 @@ use App\Post;
 use App\Tag;
 use App\Categorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -47,9 +48,17 @@ class PostController extends Controller
 			'img'=>'required|max:255',
 			'content'=>'required',
 			'categorie_id'=>'nullable|exists:categories,id',
-			'tags'=>'nullable|exists:tags,id'
+			'tags'=>'nullable|exists:tags,id',
+			'cover'=>'nullable|file|mimes:png,jpg'
+			
 		]);
       $data = $request->all();
+
+		if(array_key_exists('cover', $data)){
+			$img_path = Storage::put('post-covers', $data['cover']);
+			$data['cover'] = $img_path;
+		}
+
 		$post = new Post();
 		$slug = Str::slug($data['title'],'-');
 		$count = 1;
@@ -115,12 +124,24 @@ class PostController extends Controller
 			'img'=>'required|max:255',
 			'content'=>'required',
 			'categorie_id'=>'nullable||exists:categories,id',
+			'cover'=>'nullable|file|mimes:png,jpg'
 			
 		]);
 			$data = $request->all();
 
 			$post = Post::find($id);
-			
+
+
+			if(array_key_exists('cover', $data)){
+
+				if($post->cover){
+					Storage::delete($post->cover);
+				}
+				$img_path = Storage::put('post-covers', $data['cover']);
+				$data['cover'] = $img_path;
+			}
+
+
 			if($data['title'] != $post->title){
 				$slug = Str::slug($data['title'],'-');
 				$count = 1;
